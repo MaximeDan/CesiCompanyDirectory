@@ -110,9 +110,6 @@ namespace CesiCompanyDirectory.Migrations
                 columns: table => new
                 {
                     id = table.Column<string>(type: "text", nullable: false),
-                    discriminator = table.Column<string>(type: "text", nullable: false),
-                    firstName = table.Column<string>(type: "text", nullable: true),
-                    lastName = table.Column<string>(type: "text", nullable: true),
                     userName = table.Column<string>(type: "text", nullable: true),
                     normalizedUserName = table.Column<string>(type: "text", nullable: true),
                     email = table.Column<string>(type: "text", nullable: true),
@@ -157,9 +154,9 @@ namespace CesiCompanyDirectory.Migrations
                     phoneNumber = table.Column<string>(type: "text", nullable: false),
                     mobileNumber = table.Column<string>(type: "text", nullable: false),
                     email = table.Column<string>(type: "text", nullable: false),
-                    picture = table.Column<string>(type: "text", nullable: false),
-                    serviceId = table.Column<int>(type: "integer", nullable: false),
-                    siteId = table.Column<int>(type: "integer", nullable: false)
+                    picture = table.Column<string>(type: "text", nullable: true),
+                    serviceId = table.Column<int>(type: "integer", nullable: true),
+                    siteId = table.Column<int>(type: "integer", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -168,14 +165,12 @@ namespace CesiCompanyDirectory.Migrations
                         name: "fK_employees_services_serviceId",
                         column: x => x.serviceId,
                         principalTable: "services",
-                        principalColumn: "id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "id");
                     table.ForeignKey(
                         name: "fK_employees_sites_siteId",
                         column: x => x.siteId,
                         principalTable: "sites",
-                        principalColumn: "id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "id");
                 });
 
             migrationBuilder.CreateIndex(

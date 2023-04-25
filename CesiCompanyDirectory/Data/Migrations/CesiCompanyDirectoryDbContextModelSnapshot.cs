@@ -57,15 +57,14 @@ namespace CesiCompanyDirectory.Migrations
                         .HasColumnName("phoneNumber");
 
                     b.Property<string>("Picture")
-                        .IsRequired()
                         .HasColumnType("text")
                         .HasColumnName("picture");
 
-                    b.Property<int>("ServiceId")
+                    b.Property<int?>("ServiceId")
                         .HasColumnType("integer")
                         .HasColumnName("serviceId");
 
-                    b.Property<int>("SiteId")
+                    b.Property<int?>("SiteId")
                         .HasColumnType("integer")
                         .HasColumnName("siteId");
 
@@ -191,11 +190,6 @@ namespace CesiCompanyDirectory.Migrations
                         .HasColumnType("text")
                         .HasColumnName("concurrencyStamp");
 
-                    b.Property<string>("Discriminator")
-                        .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("discriminator");
-
                     b.Property<string>("Email")
                         .HasColumnType("text")
                         .HasColumnName("email");
@@ -248,10 +242,6 @@ namespace CesiCompanyDirectory.Migrations
                         .HasName("pK_users");
 
                     b.ToTable("users", (string)null);
-
-                    b.HasDiscriminator<string>("Discriminator").HasValue("IdentityUser");
-
-                    b.UseTphMappingStrategy();
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
@@ -334,37 +324,16 @@ namespace CesiCompanyDirectory.Migrations
                     b.ToTable("userTokens", (string)null);
                 });
 
-            modelBuilder.Entity("CesiCompanyDirectory.Models.User", b =>
-                {
-                    b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
-
-                    b.Property<string>("FirstName")
-                        .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("firstName");
-
-                    b.Property<string>("LastName")
-                        .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("lastName");
-
-                    b.HasDiscriminator().HasValue("User");
-                });
-
             modelBuilder.Entity("CesiCompanyDirectory.Models.Employee", b =>
                 {
                     b.HasOne("CesiCompanyDirectory.Models.Service", "Service")
                         .WithMany("Employees")
                         .HasForeignKey("ServiceId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
                         .HasConstraintName("fK_employees_services_serviceId");
 
                     b.HasOne("CesiCompanyDirectory.Models.Site", "Site")
                         .WithMany("Employees")
                         .HasForeignKey("SiteId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
                         .HasConstraintName("fK_employees_sites_siteId");
 
                     b.Navigation("Service");

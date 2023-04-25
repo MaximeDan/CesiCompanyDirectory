@@ -8,11 +8,11 @@ public class Employee
     public string PhoneNumber { get; set; }
     public string MobileNumber { get; set; }
     public string Email { get; set; }
-    public string Picture { get; set; }
+    public string? Picture { get; set; }
 
     // Foreign key properties
-    public int ServiceId { get; set; }
-    public int SiteId { get; set; }
+    public int? ServiceId { get; set; }
+    public int? SiteId { get; set; }
 
     // Navigation properties
     public Service Service { get; set; }

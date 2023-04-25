@@ -12,21 +12,48 @@
                 <div class="card-body">
                     <h1 class="card-title text-center mb-4">Welcome to the Company Directory</h1>
                     <p class="card-text text-center">Use the links below to navigate to different sections of the application:</p>
-                     <ul class="list-group list-group-flush">
-                        @foreach (var employee in Model.AllEmployees)
-                        {
-                            <li class="list-group-item"><a asp-page="/Employees/Details" asp-route-id="@employee.Id" class="btn btn-primary btn-block">@employee.FirstName</a></li>
-                        }
+                    <div class="container mt-5">
+                        <div class="row">
+                            @foreach (var employee in Model.AllEmployees)
+                            {
+                                <div class="col-sm-12 col-md-4 mb-4">
+                                    <div class="card shadow-lg">
+                                        <img class="card-img-top" src="@employee.Picture" alt="Picture of @employee.FirstName @employee.LastName">
+                                        <div class="card-body">
+                                            <h5 class="card-title">@employee.FirstName @employee.LastName</h5>
+                                            <a asp-page="/Employees/Details" asp-route-id="@employee.Id" class="btn btn-primary btn-block">Details</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        </div>
                         @if (User.IsInRole("Administrator"))
                         {
-                            <li class="list-group-item"><a asp-page="/Sites" class="btn btn-secondary btn-block">Site Management</a></li>
-                            <li class="list-group-item"><a asp-page="/Services" class="btn btn-secondary btn-block">Service Management</a></li>
-                            <li class="list-group-item"><a asp-page="/Employees/Create" class="btn btn-success btn-block">Add New Employee</a></li>
-                            <form method="post" asp-page-handler="logout" class="mt-4">
-                                <button type="submit" class="btn btn-danger btn-block">Logout</button>
-                            </form>
+                            <div class="row">
+                                <div class="col-sm-12 col-md-6 offset-md-3">
+                                    <div class="card shadow-lg">
+                                        <div class="card-body">
+                                            <h1 class="card-title text-center mb-4">Administrator Menu</h1>
+                                            <ul class="list-group list-group-flush">
+                                                <li class="list-group-item">
+                                                    <a asp-page="/Sites" class="btn btn-secondary btn-block">Site Management</a>
+                                                </li>
+                                                <li class="list-group-item">
+                                                    <a asp-page="/Services" class="btn btn-secondary btn-block">Service Management</a>
+                                                </li>
+                                                <li class="list-group-item">
+                                                    <a asp-page="/Employees/Create" class="btn btn-success btn-block">Add New Employee</a>
+                                                </li>
+                                                <form method="post" asp-page-handler="logout" class="mt-4">
+                                                    <button type="submit" class="btn btn-danger btn-block">Logout</button>
+                                                </form>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         }
-                    </ul>
+                    </div>
                 </div>
             </div>
         </div>

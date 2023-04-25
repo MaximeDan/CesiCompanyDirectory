@@ -15,7 +15,6 @@ public class CesiCompanyDirectoryDbContext : IdentityDbContext
     public DbSet<Employee> Employees { get; set; }
     public DbSet<Service> Services { get; set; }
     public DbSet<Site> Sites { get; set; }
-    public DbSet<User> Users { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -23,12 +22,14 @@ public class CesiCompanyDirectoryDbContext : IdentityDbContext
         modelBuilder.Entity<Employee>()
             .HasOne(e => e.Service)
             .WithMany(s => s.Employees)
-            .HasForeignKey(e => e.ServiceId);
+            .HasForeignKey(e => e.ServiceId)
+            .IsRequired(false);
 
         modelBuilder.Entity<Employee>()
             .HasOne(e => e.Site)
             .WithMany(s => s.Employees)
-            .HasForeignKey(e => e.SiteId);
+            .HasForeignKey(e => e.SiteId)
+            .IsRequired(false);
 
         modelBuilder.Entity<IdentityUserLogin<string>>()
             .HasNoKey();
