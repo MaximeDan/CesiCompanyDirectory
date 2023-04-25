@@ -1,0 +1,41 @@
+﻿# Rider files
+.idea/
+
+# Build results
+*.dll
+*.pdb
+*.exe
+
+# NuGet packages
+/packages/
+
+# User-specific files
+*.userprefs
+*.suo
+
+# Logs
+*.log
+*.trx
+*.swp
+
+# Temporary files
+*.tmp
+*.temp
+
+# Files generated during build
+*.cache
+*.bak
+*.dbmdl
+*.jfm
+*.psess
+*.vsp
+*.vssscc
+*.scc
+
+# Build directories
+[Bb]in/
+[Oo]bj/
+
+# Resharper files
+_ReSharper*/
+*.resharper
