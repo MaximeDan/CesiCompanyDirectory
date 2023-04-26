@@ -17,17 +17,26 @@
                     aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                <ul class="navbar-nav flex-grow-1">
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
                     <li class="nav-item">
                         <a class="nav-link text-dark" asp-area="" asp-page="/Index">Home</a>
                     </li>
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-page="/AdministratorMenu">Administrator Menu</a>
+                        </li>
+                    }
                 </ul>
-                <partial name="_LoginPartial"/>
+                <ul class="navbar-nav ms-auto">
+                    <partial name="_LoginPartial"/>
+                </ul>
             </div>
         </div>
     </nav>
 </header>
+
 <div class="container">
     <main role="main" class="pb-3">
         @RenderBody()

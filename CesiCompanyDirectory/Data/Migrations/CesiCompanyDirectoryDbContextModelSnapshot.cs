@@ -69,15 +69,15 @@ namespace CesiCompanyDirectory.Migrations
                         .HasColumnName("siteId");
 
                     b.HasKey("Id")
-                        .HasName("pK_employees");
+                        .HasName("pK_Employee");
 
                     b.HasIndex("ServiceId")
-                        .HasDatabaseName("iX_employees_serviceId");
+                        .HasDatabaseName("iX_Employee_serviceId");
 
                     b.HasIndex("SiteId")
-                        .HasDatabaseName("iX_employees_siteId");
+                        .HasDatabaseName("iX_Employee_siteId");
 
-                    b.ToTable("employees", (string)null);
+                    b.ToTable("Employee", (string)null);
                 });
 
             modelBuilder.Entity("CesiCompanyDirectory.Models.Service", b =>
@@ -95,9 +95,9 @@ namespace CesiCompanyDirectory.Migrations
                         .HasColumnName("name");
 
                     b.HasKey("Id")
-                        .HasName("pK_services");
+                        .HasName("pK_Service");
 
-                    b.ToTable("services", (string)null);
+                    b.ToTable("Service", (string)null);
                 });
 
             modelBuilder.Entity("CesiCompanyDirectory.Models.Site", b =>
@@ -120,9 +120,9 @@ namespace CesiCompanyDirectory.Migrations
                         .HasColumnName("name");
 
                     b.HasKey("Id")
-                        .HasName("pK_sites");
+                        .HasName("pK_Site");
 
-                    b.ToTable("sites", (string)null);
+                    b.ToTable("Site", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -132,21 +132,28 @@ namespace CesiCompanyDirectory.Migrations
                         .HasColumnName("id");
 
                     b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
                         .HasColumnType("text")
                         .HasColumnName("concurrencyStamp");
 
                     b.Property<string>("Name")
-                        .HasColumnType("text")
+                        .HasMaxLength(256)
+                        .HasColumnType("character varying(256)")
                         .HasColumnName("name");
 
                     b.Property<string>("NormalizedName")
-                        .HasColumnType("text")
+                        .HasMaxLength(256)
+                        .HasColumnType("character varying(256)")
                         .HasColumnName("normalizedName");
 
                     b.HasKey("Id")
-                        .HasName("pK_roles");
+                        .HasName("pK_Roles");
 
-                    b.ToTable("roles", (string)null);
+                    b.HasIndex("NormalizedName")
+                        .IsUnique()
+                        .HasDatabaseName("RoleNameIndex");
+
+                    b.ToTable("Roles", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -167,13 +174,17 @@ namespace CesiCompanyDirectory.Migrations
                         .HasColumnName("claimValue");
 
                     b.Property<string>("RoleId")
+                        .IsRequired()
                         .HasColumnType("text")
                         .HasColumnName("roleId");
 
                     b.HasKey("Id")
-                        .HasName("pK_roleClaims");
+                        .HasName("pK_RoleClaims");
 
-                    b.ToTable("roleClaims", (string)null);
+                    b.HasIndex("RoleId")
+                        .HasDatabaseName("iX_RoleClaims_roleId");
+
+                    b.ToTable("RoleClaims", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUser", b =>
@@ -187,11 +198,13 @@ namespace CesiCompanyDirectory.Migrations
                         .HasColumnName("accessFailedCount");
 
                     b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
                         .HasColumnType("text")
                         .HasColumnName("concurrencyStamp");
 
                     b.Property<string>("Email")
-                        .HasColumnType("text")
+                        .HasMaxLength(256)
+                        .HasColumnType("character varying(256)")
                         .HasColumnName("email");
 
                     b.Property<bool>("EmailConfirmed")
@@ -207,11 +220,13 @@ namespace CesiCompanyDirectory.Migrations
                         .HasColumnName("lockoutEnd");
 
                     b.Property<string>("NormalizedEmail")
-                        .HasColumnType("text")
+                        .HasMaxLength(256)
+                        .HasColumnType("character varying(256)")
                         .HasColumnName("normalizedEmail");
 
                     b.Property<string>("NormalizedUserName")
-                        .HasColumnType("text")
+                        .HasMaxLength(256)
+                        .HasColumnType("character varying(256)")
                         .HasColumnName("normalizedUserName");
 
                     b.Property<string>("PasswordHash")
@@ -235,17 +250,32 @@ namespace CesiCompanyDirectory.Migrations
                         .HasColumnName("twoFactorEnabled");
 
                     b.Property<string>("UserName")
-                        .HasColumnType("text")
+                        .HasMaxLength(256)
+                        .HasColumnType("character varying(256)")
                         .HasColumnName("userName");
 
                     b.HasKey("Id")
-                        .HasName("pK_users");
+                        .HasName("pK_Users");
 
-                    b.ToTable("users", (string)null);
+                    b.HasIndex("NormalizedEmail")
+                        .HasDatabaseName("EmailIndex");
+
+                    b.HasIndex("NormalizedUserName")
+                        .IsUnique()
+                        .HasDatabaseName("UserNameIndex");
+
+                    b.ToTable("Users", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasColumnName("id");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
                     b.Property<string>("ClaimType")
                         .HasColumnType("text")
                         .HasColumnName("claimType");
@@ -254,74 +284,93 @@ namespace CesiCompanyDirectory.Migrations
                         .HasColumnType("text")
                         .HasColumnName("claimValue");
 
-                    b.Property<int>("Id")
-                        .HasColumnType("integer")
-                        .HasColumnName("id");
-
                     b.Property<string>("UserId")
+                        .IsRequired()
                         .HasColumnType("text")
                         .HasColumnName("userId");
 
-                    b.ToTable("userClaims", (string)null);
+                    b.HasKey("Id")
+                        .HasName("pK_UserClaims");
+
+                    b.HasIndex("UserId")
+                        .HasDatabaseName("iX_UserClaims_userId");
+
+                    b.ToTable("UserClaims", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
                     b.Property<string>("LoginProvider")
-                        .IsRequired()
-                        .HasColumnType("text")
+                        .HasMaxLength(128)
+                        .HasColumnType("character varying(128)")
                         .HasColumnName("loginProvider");
+
+                    b.Property<string>("ProviderKey")
+                        .HasMaxLength(128)
+                        .HasColumnType("character varying(128)")
+                        .HasColumnName("providerKey");
 
                     b.Property<string>("ProviderDisplayName")
                         .HasColumnType("text")
                         .HasColumnName("providerDisplayName");
 
-                    b.Property<string>("ProviderKey")
-                        .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("providerKey");
-
                     b.Property<string>("UserId")
+                        .IsRequired()
                         .HasColumnType("text")
                         .HasColumnName("userId");
 
-                    b.ToTable("userLogins", (string)null);
+                    b.HasKey("LoginProvider", "ProviderKey")
+                        .HasName("pK_UserLogins");
+
+                    b.HasIndex("UserId")
+                        .HasDatabaseName("iX_UserLogins_userId");
+
+                    b.ToTable("UserLogins", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
                 {
+                    b.Property<string>("UserId")
+                        .HasColumnType("text")
+                        .HasColumnName("userId");
+
                     b.Property<string>("RoleId")
                         .HasColumnType("text")
                         .HasColumnName("roleId");
 
-                    b.Property<string>("UserId")
-                        .HasColumnType("text")
-                        .HasColumnName("userId");
+                    b.HasKey("UserId", "RoleId")
+                        .HasName("pK_UserRoles");
 
-                    b.ToTable("userRoles", (string)null);
+                    b.HasIndex("RoleId")
+                        .HasDatabaseName("iX_UserRoles_roleId");
+
+                    b.ToTable("UserRoles", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.Property<string>("LoginProvider")
-                        .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("loginProvider");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("name");
-
                     b.Property<string>("UserId")
                         .HasColumnType("text")
                         .HasColumnName("userId");
+
+                    b.Property<string>("LoginProvider")
+                        .HasMaxLength(256)
+                        .HasColumnType("character varying(256)")
+                        .HasColumnName("loginProvider");
+
+                    b.Property<string>("Name")
+                        .HasMaxLength(256)
+                        .HasColumnType("character varying(256)")
+                        .HasColumnName("name");
 
                     b.Property<string>("Value")
                         .HasColumnType("text")
                         .HasColumnName("value");
 
-                    b.ToTable("userTokens", (string)null);
+                    b.HasKey("UserId", "LoginProvider", "Name")
+                        .HasName("pK_UserTokens");
+
+                    b.ToTable("UserTokens", (string)null);
                 });
 
             modelBuilder.Entity("CesiCompanyDirectory.Models.Employee", b =>
@@ -329,16 +378,73 @@ namespace CesiCompanyDirectory.Migrations
                     b.HasOne("CesiCompanyDirectory.Models.Service", "Service")
                         .WithMany("Employees")
                         .HasForeignKey("ServiceId")
-                        .HasConstraintName("fK_employees_services_serviceId");
+                        .HasConstraintName("fK_Employee_services_serviceId");
 
                     b.HasOne("CesiCompanyDirectory.Models.Site", "Site")
                         .WithMany("Employees")
                         .HasForeignKey("SiteId")
-                        .HasConstraintName("fK_employees_sites_siteId");
+                        .HasConstraintName("fK_Employee_sites_siteId");
 
                     b.Navigation("Service");
 
                     b.Navigation("Site");
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("fK_RoleClaims_Roles_roleId");
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("fK_UserClaims_Users_userId");
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("fK_UserLogins_Users_userId");
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("fK_UserRoles_Roles_roleId");
+
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("fK_UserRoles_Users_userId");
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("fK_UserTokens_Users_userId");
                 });
 
             modelBuilder.Entity("CesiCompanyDirectory.Models.Service", b =>

@@ -1,0 +1,31 @@
+﻿@page
+@model CesiCompanyDirectory.Pages.AdministratorMenu
+
+@{
+    ViewData["Title"] = "Administrator Menu";
+}
+
+
+<div class="row">
+    <div class="col-sm-12 col-md-6 offset-md-3">
+        <div class="card shadow-lg">
+            <div class="card-body">
+                <h1 class="card-title text-center mb-4">Administrator Menu</h1>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">
+                        <a asp-page="/Sites" class="btn btn-secondary btn-block">Site Management</a>
+                    </li>
+                    <li class="list-group-item">
+                        <a asp-page="/Services" class="btn btn-secondary btn-block">Service Management</a>
+                    </li>
+                    <li class="list-group-item">
+                        <a asp-page="/Employees/Create" class="btn btn-success btn-block">Add New Employee</a>
+                    </li>
+                    <form method="post" asp-page-handler="logout" class="mt-4">
+                        <button type="submit" class="btn btn-danger btn-block">Logout</button>
+                    </form>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
