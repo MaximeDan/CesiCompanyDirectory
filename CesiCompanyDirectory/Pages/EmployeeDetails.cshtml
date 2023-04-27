@@ -1,0 +1,125 @@
+﻿@page
+@model CesiCompanyDirectory.Pages.EmployeeDetails
+
+@{
+    ViewData["Title"] = "Employee Details";
+}
+
+<div class="container">
+    <div class="row d-flex justify-content-between align-items-center mb-4">
+        <dl class="col-md-9">
+            <h1>Employee Details</h1>
+            <dl class="row">
+                <form method="post">
+                    <dt class="col-sm-3">Picture</dt>
+                    <dd class="col-sm-9">
+                        @if (!string.IsNullOrEmpty(Model.Employee.Picture))
+                        {
+                            <img src="@Model.Employee.Picture" class="img-fluid" alt="Employee Picture">
+                        }
+                        else
+                        {
+                            <img src="/user.png" class="img-fluid" alt="Employee Picture">
+                        }
+                    </dd>
+                    <dt class="col-sm-3">First Name</dt>
+                    <dd class="col-sm-9">
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <input type="text" name="FirstName" value="@Model.Employee.FirstName" class="form-control">
+                        }
+                        else
+                        {
+                            @Model.Employee.FirstName
+                        }
+                    </dd>
+                    <dt class="col-sm-3">Last Name</dt>
+                    <dd class="col-sm-9">
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <input type="text" name="LastName" class="form-control"  value="@Model.Employee.LastName">
+                        }
+                        else
+                        {
+                            @Model.Employee.LastName
+                        }
+                    </dd>
+                    <dt class="col-sm-3">Phone Number</dt>
+                    <dd class="col-sm-9">
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <input type="text" name="PhoneNumber" class="form-control" value="@Model.Employee.PhoneNumber">
+                        }
+                        else
+                        {
+                            @Model.Employee.PhoneNumber
+                        }
+                    </dd>
+                    <dt class="col-sm-3">Mobile Number</dt>
+                    <dd class="col-sm-9">
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <input type="text" name="MobileNumber" class="form-control" value="@Model.Employee.MobileNumber">
+                        }
+                        else
+                        {
+                            @Model.Employee.MobileNumber
+                        }
+                    </dd>
+                    <dt class="col-sm-3">Email</dt>
+                    <dd class="col-sm-9">
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <input type="text" name="Email" class="form-control" value="@Model.Employee.Email">
+                        }
+                        else
+                        {
+                            @Model.Employee.Email
+                        }
+                    </dd>
+                    <dt class="col-sm-3">Service</dt>
+                    <dd class="col-sm-9">
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <select class="form-control" name="ServiceId" value="@Model.Employee.ServiceId">
+                                @foreach (var service in Model.AllServices)
+                                {
+                                    <option value="@service.Id">@service.Name</option>
+                                }
+                            </select>
+                        }
+                        else
+                        {
+                            @Model.Service.Name
+                        }
+                    </dd>
+                    <dt class="col-sm-3">Site</dt>
+                    <dd class="col-sm-9">
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <select class="form-control" name="SiteId" value="@Model.Employee.SiteId">
+                                @foreach (var site in Model.AllSites)
+                                {
+                                    <option value="@site.Id">@site.Name</option>
+                                }
+                            </select>
+                        }
+                        else
+                        {
+                            @Model.Site.Name
+                        }
+                    </dd>
+                    <div class="d-flex justify-content-end mb-4">
+                        @if (User.IsInRole("Admin"))
+                        {
+                                        
+                            <button asp-page-handler="UpdateEmployee" asp-route-employeeId="@Model.Employee.Id" class="btn btn-primary" type="submit">Update Employee</button>
+                            <a asp-page-handler="DeleteEmployee" asp-route-employeeId="@Model.Employee.Id" class="btn btn-danger ml-2">Delete Employee</a>
+                        }
+                    </div>
+                </form>
+            </dl>
+            
+        </dl>
+    </div>
+</div>

@@ -5,7 +5,6 @@
     ViewData["Title"] = "Administrator Menu";
 }
 
-
 <div class="row">
     <div class="col-sm-12 col-md-6 offset-md-3">
         <div class="card shadow-lg">
@@ -13,19 +12,35 @@
                 <h1 class="card-title text-center mb-4">Administrator Menu</h1>
                 <ul class="list-group list-group-flush">
                     <li class="list-group-item">
-                        <a asp-page="/Sites" class="btn btn-secondary btn-block">Site Management</a>
+                        <h3>Sites Management</h3>
+                        <div class="row">
+                            <div class="d-flex justify-content-between mb-4">
+                               <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addSite">
+                                   Demo
+                               </button>
+                                <a asp-page="/Sites/UpdateDelete" class="btn btn-warning">Update/Delete Site</a>
+                            </div>
+                        </div>
                     </li>
                     <li class="list-group-item">
-                        <a asp-page="/Services" class="btn btn-secondary btn-block">Service Management</a>
+                        <h3>Services Management</h3>
+                        <div class="btn-group" role="group" aria-label="Site management buttons">
+                            <a asp-page="/Services/Create" class="btn btn-secondary">Add New Service</a>
+                            <a asp-page="/Services/Edit" class="btn btn-secondary">Update Service</a>
+                            <a asp-page="/Services/Delete" class="btn btn-secondary">Delete Service</a>
+                        </div>
                     </li>
                     <li class="list-group-item">
-                        <a asp-page="/Employees/Create" class="btn btn-success btn-block">Add New Employee</a>
+                        <h3>Employees Management</h3>
+                        <div class="btn-group" role="group" aria-label="Site management buttons">
+                            <a asp-page="/Employees/Create" class="btn btn-secondary">Add New Employee</a>
+                            <a asp-page="/Employees/Edit" class="btn btn-secondary">Update Employee</a>
+                            <a asp-page="/Employees/Delete" class="btn btn-secondary">Delete Employee</a>
+                        </div>
                     </li>
-                    <form method="post" asp-page-handler="logout" class="mt-4">
-                        <button type="submit" class="btn btn-danger btn-block">Logout</button>
-                    </form>
                 </ul>
             </div>
         </div>
     </div>
 </div>
+

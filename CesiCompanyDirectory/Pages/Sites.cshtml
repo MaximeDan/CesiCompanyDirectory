@@ -1,0 +1,27 @@
+﻿@page
+@model CesiCompanyDirectory.Pages.Sites
+@{
+    ViewData["Title"] = "Site Management";
+}
+
+<h1>Site</h1>
+
+<table class="table">
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th>Location</th>
+        <th>Action</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var site in Model.AllSite)
+    {
+        <tr>
+            <td>@site.Name</td>
+            <td>@site.City</td>
+            <td><a href="/Sites/UpdateDelete?id=@site.Id">Edit/Delete</a></td>
+        </tr>
+    }
+    </tbody>
+</table>

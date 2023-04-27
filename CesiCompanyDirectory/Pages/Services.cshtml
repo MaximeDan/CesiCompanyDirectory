@@ -1,0 +1,28 @@
+﻿@page
+@model CesiCompanyDirectory.Pages.Services
+
+
+@{
+    ViewData["Title"] = "Home";
+}
+
+<h1>Service</h1>
+
+<table class="table">
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th>Location</th>
+        <th>Action</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var service in Model.AllService)
+    {
+        <tr>
+            <td>@service.Name</td>
+            <td><a href="/Sites/UpdateDelete?id=@service.Id">Edit/Delete</a></td>
+        </tr>
+    }
+    </tbody>
+</table>

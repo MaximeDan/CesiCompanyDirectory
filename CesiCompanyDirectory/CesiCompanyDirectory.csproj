@@ -4,7 +4,6 @@
         <TargetFramework>net7.0</TargetFramework>
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
-        <UserSecretsId>aspnet-CesiCompanyDirectory-250CD263-C3EF-4CBF-8CBD-90FF980C8F45</UserSecretsId>
     </PropertyGroup>
 
     <ItemGroup>

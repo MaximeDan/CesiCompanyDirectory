@@ -1,0 +1,85 @@
+﻿@page
+@model CesiCompanyDirectory.Pages.AddNewEmployee
+
+@{
+    ViewData["Title"] = "Add Employee";
+}
+
+
+@if (User.IsInRole("Admin"))
+{
+    <div class="container">
+        <div class="row d-flex justify-content-between align-items-center mb-4">
+            <dl class="col-md-9">
+                <h1>Employee Details</h1>
+                <dl class="row">
+                    <form method="post">
+                        <dt class="col-sm-3">Picture</dt>
+                        <dd class="col-sm-9">
+                            <img src="/user.png" class="img-fluid" alt="Employee Picture">
+                        </dd>
+                        <dt class="col-sm-3">First Name</dt>
+                        <dd class="col-sm-9">
+
+                            <input type="text" name="FirstName" value="@Model.NewEmployee.FirstName" class="form-control">
+
+                        </dd>
+                        <dt class="col-sm-3">Last Name</dt>
+                        <dd class="col-sm-9">
+
+                            <input type="text" name="LastName" class="form-control" value="@Model.NewEmployee.LastName">
+
+                        </dd>
+                        <dt class="col-sm-3">Phone Number</dt>
+                        <dd class="col-sm-9">
+
+                            <input type="text" name="PhoneNumber" class="form-control" value="@Model.NewEmployee.PhoneNumber">
+
+                        </dd>
+                        <dt class="col-sm-3">Mobile Number</dt>
+                        <dd class="col-sm-9">
+
+                            <input type="text" name="MobileNumber" class="form-control" value="@Model.NewEmployee.MobileNumber">
+
+                        </dd>
+                        <dt class="col-sm-3">Email</dt>
+                        <dd class="col-sm-9">
+
+                            <input type="text" name="Email" class="form-control" value="@Model.NewEmployee.Email">
+
+                        </dd>
+                        <dt class="col-sm-3">Service</dt>
+                        <dd class="col-sm-9">
+
+                            <select class="form-control" name="ServiceId" value="@Model.NewEmployee.ServiceId">
+                                @foreach (var service in Model.AllServices)
+                                {
+                                    <option value="@service.Id">@service.Name</option>
+                                }
+                            </select>
+
+                        </dd>
+                        <dt class="col-sm-3">Site</dt>
+                        <dd class="col-sm-9">
+
+                            <select class="form-control" name="SiteId" value="@Model.NewEmployee.SiteId">
+                                @foreach (var site in Model.AllSites)
+                                {
+                                    <option value="@site.Id">@site.Name</option>
+                                }
+                            </select>
+
+                        </dd>
+                        <div class="d-flex justify-content-end mb-4">
+
+                            <button asp-page-handler="UpdateEmployee" asp-route-employeeId="@Model.NewEmployee.Id" class="btn btn-primary" type="submit">Update Employee</button>
+                            <a asp-page-handler="DeleteEmployee" asp-route-employeeId="@Model.NewEmployee.Id" class="btn btn-danger ml-2">Delete Employee</a>
+
+                        </div>
+                    </form>
+                </dl>
+
+            </dl>
+        </div>
+    </div>
+}

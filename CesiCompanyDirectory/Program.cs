@@ -12,7 +12,9 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
 builder.Services.AddDbContext<CesiCompanyDirectoryDbContext>(options =>
     options.UseNpgsql(connectionString).UseCamelCaseNamingConvention());
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
-builder.Services.AddTransient<IEmployeeService, EmployeeService>();
+builder.Services.AddScoped<IEmployeeService, EmployeeService>();
+builder.Services.AddScoped<IServiceService, ServiceService>();
+builder.Services.AddScoped<ISiteService, SiteService>();
 
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddRoles<IdentityRole>()
