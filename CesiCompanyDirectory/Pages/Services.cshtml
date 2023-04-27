@@ -3,26 +3,33 @@
 
 
 @{
-    ViewData["Title"] = "Home";
+    ViewData["Title"] = "Services Management";
 }
 
-<h1>Service</h1>
+@if (User.IsInRole("Admin"))
+{
+    <h1>Service</h1>
 
-<table class="table">
-    <thead>
-    <tr>
-        <th>Name</th>
-        <th>Location</th>
-        <th>Action</th>
-    </tr>
-    </thead>
-    <tbody>
-    @foreach (var service in Model.AllService)
-    {
+    <table class="table">
+        <thead>
         <tr>
-            <td>@service.Name</td>
-            <td><a href="/Sites/UpdateDelete?id=@service.Id">Edit/Delete</a></td>
+            <th>Name</th>
+            <th>Location</th>
+            <th>Action</th>
         </tr>
-    }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+        @foreach (var service in Model.AllService)
+        {
+            <tr>
+                <td>@service.Name</td>
+                <td><a href="/Sites/UpdateDelete?id=@service.Id">Edit/Delete</a></td>
+            </tr>
+        }
+        </tbody>
+    </table>
+
+    <div class="d-flex justify-content-end mb-4">
+        <a asp-page="/AddService" class="btn btn-success">Add New Service</a>
+    </div>
+}

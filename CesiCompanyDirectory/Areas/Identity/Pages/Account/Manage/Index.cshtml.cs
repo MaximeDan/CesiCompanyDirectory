@@ -93,16 +93,13 @@ public class IndexModel : PageModel
             return Page();
         }
 
-        var role = await _userManager.GetRolesAsync(user);
-        if (Input.Role != role.FirstOrDefault())
+        var addRoleResult = await _userManager.AddToRoleAsync(user, Input.Role);
+        if (!addRoleResult.Succeeded)
         {
-            var addRoleResult = await _userManager.AddToRoleAsync(user, Input.Role);
-            if (!addRoleResult.Succeeded)
-            {
-                StatusMessage = "Unexpected error when trying to add role.";
-                return RedirectToPage();
-            }
+            StatusMessage = "Unexpected error when trying to add role.";
+            return RedirectToPage();
         }
+        
 
         await _signInManager.RefreshSignInAsync(user);
         StatusMessage = "Your profile has been updated";

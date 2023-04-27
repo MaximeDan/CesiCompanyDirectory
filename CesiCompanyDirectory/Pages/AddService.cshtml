@@ -1,0 +1,29 @@
+﻿@page
+@model CesiCompanyDirectory.Pages.AddService
+
+@{
+    ViewData["Title"] = "Add Service";
+}
+
+
+@if (User.IsInRole("Admin"))
+{
+    <div class="container">
+        <div class="row d-flex justify-content-between align-items-center mb-4">
+            <dl class="col-md-9">
+                <h1>Service to add</h1>
+                <dl class="row">
+                    <form method="post">
+                        <dt class="col-sm-3">Name</dt>
+                        <dd class="col-sm-9">
+                            <input type="text" name="Name" class="form-control">
+                        </dd>
+                        <div class="d-flex justify-content-end mb-4">
+                            <button asp-page-handler="AddService" class="btn btn-primary" type="submit">Add Service</button>
+                        </div>
+                    </form>
+                </dl>
+            </dl>
+        </div>
+    </div>
+}

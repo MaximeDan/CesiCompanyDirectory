@@ -20,65 +20,47 @@
                         </dd>
                         <dt class="col-sm-3">First Name</dt>
                         <dd class="col-sm-9">
-
-                            <input type="text" name="FirstName" value="@Model.NewEmployee.FirstName" class="form-control">
-
+                            <input type="text" name="FirstName" class="form-control">
                         </dd>
                         <dt class="col-sm-3">Last Name</dt>
                         <dd class="col-sm-9">
-
-                            <input type="text" name="LastName" class="form-control" value="@Model.NewEmployee.LastName">
-
+                            <input type="text" name="LastName" class="form-control">
                         </dd>
                         <dt class="col-sm-3">Phone Number</dt>
                         <dd class="col-sm-9">
-
-                            <input type="text" name="PhoneNumber" class="form-control" value="@Model.NewEmployee.PhoneNumber">
-
+                            <input type="text" name="PhoneNumber" class="form-control">
                         </dd>
                         <dt class="col-sm-3">Mobile Number</dt>
                         <dd class="col-sm-9">
-
-                            <input type="text" name="MobileNumber" class="form-control" value="@Model.NewEmployee.MobileNumber">
-
+                            <input type="text" name="MobileNumber" class="form-control">
                         </dd>
                         <dt class="col-sm-3">Email</dt>
                         <dd class="col-sm-9">
-
-                            <input type="text" name="Email" class="form-control" value="@Model.NewEmployee.Email">
-
+                            <input type="text" name="Email" class="form-control">
                         </dd>
                         <dt class="col-sm-3">Service</dt>
                         <dd class="col-sm-9">
-
-                            <select class="form-control" name="ServiceId" value="@Model.NewEmployee.ServiceId">
+                            <select class="form-control" name="ServiceId">
                                 @foreach (var service in Model.AllServices)
                                 {
                                     <option value="@service.Id">@service.Name</option>
                                 }
                             </select>
-
                         </dd>
                         <dt class="col-sm-3">Site</dt>
                         <dd class="col-sm-9">
-
-                            <select class="form-control" name="SiteId" value="@Model.NewEmployee.SiteId">
+                            <select class="form-control" name="SiteId">
                                 @foreach (var site in Model.AllSites)
                                 {
                                     <option value="@site.Id">@site.Name</option>
                                 }
                             </select>
-
                         </dd>
                         <div class="d-flex justify-content-end mb-4">
-
-                            <button asp-page-handler="UpdateEmployee" asp-route-employeeId="@Model.NewEmployee.Id" class="btn btn-primary" type="submit">Update Employee</button>
-                            <a asp-page-handler="DeleteEmployee" asp-route-employeeId="@Model.NewEmployee.Id" class="btn btn-danger ml-2">Delete Employee</a>
-
+                            <button asp-page-handler="AddEmployee" class="btn btn-primary" type="submit">Add Employee</button>
                         </div>
                     </form>
                 </dl>
-
             </dl>
         </div>
     </div>

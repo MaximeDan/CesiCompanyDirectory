@@ -12,7 +12,6 @@ public class AddNewEmployee : PageModel
     private readonly ISiteService _siteService;
     private readonly IServiceService _serviceService;
 
-    public Employee NewEmployee;
     public ICollection<Site> AllSites;
     public ICollection<Service> AllServices;
 
@@ -27,10 +26,9 @@ public class AddNewEmployee : PageModel
 
     public void OnGet()
     {
-        
     }
 
-    public async Task<IActionResult> OnPostAddEmployee(Employee employee)
+    public async Task<IActionResult> OnPostAddEmployee([FromForm] Employee employee)
     {
         var employeeToAdd = new Employee
         {
@@ -43,6 +41,8 @@ public class AddNewEmployee : PageModel
             ServiceId = employee.ServiceId
         };
 
+        await _employeeService.AddEmployeeAsync(employeeToAdd);
+        
         var addedEmployee = await _employeeService.GetEmployeeByIdAsync(employeeToAdd.Id);
 
         return RedirectToPage("./EmployeeDetails", new { employeeId = addedEmployee.Id });

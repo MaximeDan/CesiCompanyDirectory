@@ -68,7 +68,14 @@ public class EmployeeService : IEmployeeService
     /// <inheritdoc />
     public async Task UpdateEmployeeAsync(Employee employee)
     {
-        _context.Employees.Update(employee);
+        _context.Attach(employee);
+        _context.Entry(employee).Property(e => e.FirstName).IsModified = true;
+        _context.Entry(employee).Property(e => e.LastName).IsModified = true;
+        _context.Entry(employee).Property(e => e.PhoneNumber).IsModified = true;
+        _context.Entry(employee).Property(e => e.MobileNumber).IsModified = true;
+        _context.Entry(employee).Property(e => e.Email).IsModified = true;
+        _context.Entry(employee).Property(e => e.ServiceId).IsModified = true;
+        _context.Entry(employee).Property(e => e.SiteId).IsModified = true;
         await _context.SaveChangesAsync();
     }
 

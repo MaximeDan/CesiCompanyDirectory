@@ -1,5 +1,8 @@
-﻿namespace CesiCompanyDirectory.Models;
+﻿using Microsoft.AspNetCore.Mvc;
 
+namespace CesiCompanyDirectory.Models;
+
+[BindProperties]
 public class Site
 {
     public int Id { get; set; }

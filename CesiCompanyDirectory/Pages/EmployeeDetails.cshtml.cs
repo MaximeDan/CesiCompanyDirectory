@@ -68,29 +68,28 @@ public class EmployeeDetails : PageModel
 
         if (employee.ServiceId != null)
         {
-            employeeInput.ServiceId = employee.ServiceId;
+            employeeInput.Service =  await _serviceService.GetServiceByIdAsync((int)employee.ServiceId);
         }
     
         if (employee.SiteId != null)
         {
-            employeeInput.SiteId = employee.SiteId;
+            employeeInput.Site =  await _siteService.GetSiteByIdAsync((int)employee.SiteId);
         }
-        if (User.IsInRole("Admin"))
+        
+        Employee = await _employeeService.GetEmployeeByIdAsync(employeeId);
+        if (Employee != null)
         {
-            Employee = await _employeeService.GetEmployeeByIdAsync(employeeId);
-            if (Employee != null)
-            {
-                Employee.FirstName = employeeInput.FirstName;
-                Employee.LastName = employeeInput.LastName;
-                Employee.PhoneNumber = employeeInput.PhoneNumber;
-                Employee.MobileNumber = employeeInput.MobileNumber;
-                Employee.Email = employeeInput.Email;
-                Employee.ServiceId = employeeInput.ServiceId;
-                Employee.SiteId = employeeInput.SiteId;
-                Employee.Picture = employeeInput.Picture;
-                await _employeeService.UpdateEmployeeAsync(Employee);
-            }
+            Employee.FirstName = employeeInput.FirstName;
+            Employee.LastName = employeeInput.LastName;
+            Employee.PhoneNumber = employeeInput.PhoneNumber;
+            Employee.MobileNumber = employeeInput.MobileNumber;
+            Employee.Email = employeeInput.Email;
+            Employee.Service = employeeInput.Service;
+            Employee.Site = employeeInput.Site;
+            Employee.Picture = employeeInput.Picture;
+            await _employeeService.UpdateEmployeeAsync(Employee);
         }
+       
         
         return RedirectToPage("./EmployeeDetails", new {employeeId = Employee.Id });
     }

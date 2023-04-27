@@ -4,24 +4,31 @@
     ViewData["Title"] = "Site Management";
 }
 
-<h1>Site</h1>
+@if (User.IsInRole("Admin"))
+{
+    <h1>Site</h1>
 
-<table class="table">
-    <thead>
-    <tr>
-        <th>Name</th>
-        <th>Location</th>
-        <th>Action</th>
-    </tr>
-    </thead>
-    <tbody>
-    @foreach (var site in Model.AllSite)
-    {
+    <table class="table">
+        <thead>
         <tr>
-            <td>@site.Name</td>
-            <td>@site.City</td>
-            <td><a href="/Sites/UpdateDelete?id=@site.Id">Edit/Delete</a></td>
+            <th>Name</th>
+            <th>Location</th>
+            <th>Action</th>
         </tr>
-    }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+        @foreach (var site in Model.AllSite)
+        {
+            <tr>
+                <td>@site.Name</td>
+                <td>@site.City</td>
+                <td><a href="/Sites/UpdateDelete?id=@site.Id">Edit/Delete</a></td>
+            </tr>
+        }
+        </tbody>
+    </table>
+
+    <div class="d-flex justify-content-end mb-4">
+        <a asp-page="/AddSite" class="btn btn-success">Add New Site</a>
+    </div>
+}
