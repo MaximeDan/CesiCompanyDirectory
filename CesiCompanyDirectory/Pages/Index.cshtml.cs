@@ -9,6 +9,8 @@ public class IndexModel : PageModel
 {
     private readonly ILogger<IndexModel> _logger;
     private readonly IEmployeeService _employeeService;
+    private readonly IServiceService _serviceService;
+    private readonly ISiteService _siteService;
 
     // Add these properties
     [BindProperty(SupportsGet = true)]
@@ -20,11 +22,17 @@ public class IndexModel : PageModel
     [BindProperty(SupportsGet = true)]
     public string ServiceSearchTerm { get; set; }
     public IList<Employee> Employees { get; set; }
+    
+    public List<Site> Sites { get; set; }
+    public List<Service> Services { get; set; }
 
-    public IndexModel(ILogger<IndexModel> logger, IEmployeeService employeeService)
+
+    public IndexModel(ILogger<IndexModel> logger, IEmployeeService employeeService, ISiteService siteService, IServiceService serviceService)
     {
         _logger = logger;
         _employeeService = employeeService;
+        _siteService = siteService;
+        _serviceService = serviceService;
     }
 
     public async Task OnGet()
@@ -45,5 +53,8 @@ public class IndexModel : PageModel
         {
             Employees = await _employeeService.GetAllEmployeesAsync();
         }
+        
+        Sites = await _siteService.GetSitesAsync();
+        Services = await _serviceService.GetServicesAsync();
     }
 }

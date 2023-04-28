@@ -9,7 +9,7 @@ public class UpdateDeleteSite : PageModel
 {
     private readonly ISiteService _siteService;
 
-    public Site Site;
+    public Site? Site;
 
     public UpdateDeleteSite(ISiteService siteService)
     {

@@ -26,7 +26,7 @@
                     <dd class="col-sm-9">
                         @if (User.IsInRole("Admin"))
                         {
-                            <input type="text" name="FirstName" value="@Model.Employee.FirstName" class="form-control">
+                            <input type="text" name="FirstName" maxlength="255" value="@Model.Employee.FirstName" class="form-control">
                         }
                         else
                         {
@@ -37,7 +37,7 @@
                     <dd class="col-sm-9">
                         @if (User.IsInRole("Admin"))
                         {
-                            <input type="text" name="LastName" class="form-control"  value="@Model.Employee.LastName">
+                            <input type="text" name="LastName" class="form-control" maxlength="255" value="@Model.Employee.LastName">
                         }
                         else
                         {
@@ -48,7 +48,7 @@
                     <dd class="col-sm-9">
                         @if (User.IsInRole("Admin"))
                         {
-                            <input type="text" name="PhoneNumber" class="form-control" value="@Model.Employee.PhoneNumber">
+                            <input type="text" name="PhoneNumber" maxlength="20" class="form-control" value="@Model.Employee.PhoneNumber">
                         }
                         else
                         {
@@ -59,7 +59,7 @@
                     <dd class="col-sm-9">
                         @if (User.IsInRole("Admin"))
                         {
-                            <input type="text" name="MobileNumber" class="form-control" value="@Model.Employee.MobileNumber">
+                            <input type="text" name="MobileNumber" maxlength="20" class="form-control" value="@Model.Employee.MobileNumber">
                         }
                         else
                         {
@@ -70,7 +70,7 @@
                     <dd class="col-sm-9">
                         @if (User.IsInRole("Admin"))
                         {
-                            <input type="text" name="Email" class="form-control" value="@Model.Employee.Email">
+                            <input type="text" name="Email" class="form-control" maxlength="255" value="@Model.Employee.Email">
                         }
                         else
                         {

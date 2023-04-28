@@ -45,7 +45,7 @@ public class EmployeeService : IEmployeeService
     public async Task<Employee[]> SearchBySiteAsync(string site)
     {
         return await _context.Employees
-            .Where(e => e.Site.Name.Contains(site, StringComparison.OrdinalIgnoreCase))
+            .Where(e => e.Site.Name.Contains(site))
             .ToArrayAsync();
     }
 
@@ -53,7 +53,7 @@ public class EmployeeService : IEmployeeService
     public async Task<Employee[]> SearchByServiceAsync(string service)
     {
         return await _context.Employees
-            .Where(e => e.Service.Name.Contains(service, StringComparison.OrdinalIgnoreCase))
+            .Where(e => e.Service.Name.Contains(service))
             .ToArrayAsync();
     }
 

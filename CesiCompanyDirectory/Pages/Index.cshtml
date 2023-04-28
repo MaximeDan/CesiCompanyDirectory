@@ -17,21 +17,35 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="name">Name:</label>
-                                    <input type="text" name="NameSearchTerm" id="NameSearchTerm" class="form-control" value="@ViewBag.Name" />
+                                    <input type="text" name="NameSearchTerm" maxlength="255" id="NameSearchTerm" class="form-control" value="@ViewBag.Name" />
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="site">Site:</label>
-                                    <input type="text" name="SiteSearchTerm" id="SiteSearchTerm" class="form-control" value="@ViewBag.Site" />
+                                    <select name="SiteSearchTerm" id="SiteSearchTerm" class="form-control">
+                                        <option value="">--Select a site--</option>
+                                        @foreach (var site in Model.Sites)
+                                        {
+                                            <option value="@site.Name">@site.Name</option>
+                                        }
+                                    </select>
                                 </div>
                             </div>
+                            
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="service">Service:</label>
-                                    <input type="text" name="ServiceSearchTerm" id="ServiceSearchTerm" class="form-control" value="@ViewBag.Service" />
+                                    <select name="ServiceSearchTerm" id="ServiceSearchTerm" class="form-control">
+                                        <option value="">--Select a service--</option>
+                                        @foreach (var service in Model.Services)
+                                        {
+                                            <option value="@service.Name">@service.Name</option>
+                                        }
+                                    </select>
                                 </div>
                             </div>
+
                         </div>
                         <div class="text-center">
                             <button type="submit" class="btn btn-primary">Search</button>
@@ -72,3 +86,4 @@
         </div>
     </div>
 </div>
+

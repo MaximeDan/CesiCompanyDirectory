@@ -22,11 +22,11 @@
                     <form method="post">
                         <dt class="col-sm-3">Name</dt>
                         <dd class="col-sm-9">
-                            <input type="text" name="Name" class="form-control" value="@Model.Service.Name">
+                            <input type="text" name="Name" maxlength="255" class="form-control" value="@Model.Service?.Name">
                         </dd>
                         <div class="d-flex justify-content-end mb-4">
-                            <button asp-page-handler="UpdateService" asp-route-serviceId="@Model.Service.Id" class="btn btn-primary" type="submit">Update Service</button>
-                            <button asp-page-handler="DeleteService" asp-route-serviceId="@Model.Service.Id" class="btn btn-danger" type="submit">Delete Service</button>
+                            <button asp-page-handler="UpdateService" asp-route-serviceId="@Model.Service?.Id" class="btn btn-primary" type="submit">Update Service</button>
+                            <button asp-page-handler="DeleteService" asp-route-serviceId="@Model.Service?.Id" class="btn btn-danger" type="submit">Delete Service</button>
                         </div>
                     </form>
                 </dl>
