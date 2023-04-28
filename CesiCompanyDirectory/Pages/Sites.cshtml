@@ -22,13 +22,13 @@
             <tr>
                 <td>@site.Name</td>
                 <td>@site.City</td>
-                <td><a href="/Sites/UpdateDelete?id=@site.Id">Edit/Delete</a></td>
+                <td><a asp-page="./UpdateDeleteSite" asp-route-siteId="@site.Id" class="btn btn-warning">Edit/Delete</a></td>
             </tr>
         }
         </tbody>
     </table>
 
     <div class="d-flex justify-content-end mb-4">
-        <a asp-page="/AddSite" class="btn btn-success">Add New Site</a>
+        <a asp-page="./AddSite" class="btn btn-success">Add New Site</a>
     </div>
 }

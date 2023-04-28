@@ -1,0 +1,40 @@
+﻿@page
+@model CesiCompanyDirectory.Pages.UpdateDeleteSite
+
+@{
+    ViewData["Title"] = "Update/Delete Site";
+}
+
+
+@if (User.IsInRole("Admin"))
+{
+    <div class="container">
+        <div class="row d-flex justify-content-between align-items-center mb-4">
+            <dl class="col-md-9">
+                <h1>Service to Update or Delete</h1>
+                 @if (TempData["ErrorMessage"] != null)
+                 {
+                     <div class="alert alert-danger" role="alert">
+                         @TempData["ErrorMessage"]
+                     </div>
+                 }
+                <dl class="row">
+                    <form method="post">
+                       <dt class="col-sm-3">Name</dt>
+                        <dd class="col-sm-9">
+                            <input type="text" name="Name" class="form-control" value="@Model.Site.Name">
+                        </dd>
+                        <dt class="col-sm-3">City</dt>
+                        <dd class="col-sm-9">
+                            <input type="text" name="City" class="form-control" value="@Model.Site.City">
+                        </dd>
+                        <div class="d-flex justify-content-end mb-4">
+                            <button asp-page-handler="UpdateSite" asp-route-siteId="@Model.Site.Id" class="btn btn-primary" type="submit">Update Site</button>
+                            <button asp-page-handler="DeleteSite" asp-route-siteId="@Model.Site.Id" class="btn btn-danger" type="submit">Delete Site</button>
+                        </div>
+                    </form>
+                </dl>
+            </dl>
+        </div>
+    </div>
+}

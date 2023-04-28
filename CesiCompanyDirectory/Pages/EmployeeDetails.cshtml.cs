@@ -33,7 +33,7 @@ public class EmployeeDetails : PageModel
             Employee = await _employeeService.GetEmployeeByIdAsync(employeeId);
             if (Employee.Site is not null)
             {
-                Site = await _siteService.GetSiteByIdAsync(Employee.Site.Id);
+                Site = await _siteService.GetSiteByIdAsync((int) Employee.SiteId);
             }
             else
             {
@@ -42,7 +42,7 @@ public class EmployeeDetails : PageModel
             
             if (Employee.Service is not null)
             {
-                Service = await _serviceService.GetServiceByIdAsync(Employee.Service.Id);
+                Service = await _serviceService.GetServiceByIdAsync((int) Employee.ServiceId);
             }
             else
             {
@@ -92,5 +92,12 @@ public class EmployeeDetails : PageModel
        
         
         return RedirectToPage("./EmployeeDetails", new {employeeId = Employee.Id });
+    }
+
+    public async Task<IActionResult> OnPostDeleteEmployee(int employeeId)
+    {
+        await _employeeService.DeleteEmployeeAsync(employeeId);
+
+        return RedirectToPage("./Index");
     }
 }

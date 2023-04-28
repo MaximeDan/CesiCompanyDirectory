@@ -18,6 +18,6 @@ public class Employee
     public int? SiteId { get; set; }
 
     // Navigation properties
-    public Service Service { get; set; }
-    public Site Site { get; set; }
+    public Service? Service { get; set; }
+    public Site? Site { get; set; }
 }

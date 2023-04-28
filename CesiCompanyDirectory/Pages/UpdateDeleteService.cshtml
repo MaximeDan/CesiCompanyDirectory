@@ -1,0 +1,36 @@
+﻿@page
+@model CesiCompanyDirectory.Pages.UpdateDeleteService
+
+@{
+    ViewData["Title"] = "Update/Delete Service";
+}
+
+
+@if (User.IsInRole("Admin"))
+{
+    <div class="container">
+        <div class="row d-flex justify-content-between align-items-center mb-4">
+            <dl class="col-md-9">
+                <h1>Service to Update or Delete</h1>
+                 @if (TempData["ErrorMessage"] != null)
+                 {
+                     <div class="alert alert-danger" role="alert">
+                         @TempData["ErrorMessage"]
+                     </div>
+                 }
+                <dl class="row">
+                    <form method="post">
+                        <dt class="col-sm-3">Name</dt>
+                        <dd class="col-sm-9">
+                            <input type="text" name="Name" class="form-control" value="@Model.Service.Name">
+                        </dd>
+                        <div class="d-flex justify-content-end mb-4">
+                            <button asp-page-handler="UpdateService" asp-route-serviceId="@Model.Service.Id" class="btn btn-primary" type="submit">Update Service</button>
+                            <button asp-page-handler="DeleteService" asp-route-serviceId="@Model.Service.Id" class="btn btn-danger" type="submit">Delete Service</button>
+                        </div>
+                    </form>
+                </dl>
+            </dl>
+        </div>
+    </div>
+}

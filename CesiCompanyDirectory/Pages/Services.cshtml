@@ -14,7 +14,6 @@
         <thead>
         <tr>
             <th>Name</th>
-            <th>Location</th>
             <th>Action</th>
         </tr>
         </thead>
@@ -23,13 +22,13 @@
         {
             <tr>
                 <td>@service.Name</td>
-                <td><a href="/Sites/UpdateDelete?id=@service.Id">Edit/Delete</a></td>
+                <td><a asp-page="./UpdateDeleteService" asp-route-serviceId="@service.Id" class="btn btn-warning">Edit/Delete</a></td>
             </tr>
         }
         </tbody>
     </table>
 
     <div class="d-flex justify-content-end mb-4">
-        <a asp-page="/AddService" class="btn btn-success">Add New Service</a>
+        <a asp-page="./AddService" class="btn btn-success">Add New Service</a>
     </div>
 }

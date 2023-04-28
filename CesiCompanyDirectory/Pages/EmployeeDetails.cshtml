@@ -81,7 +81,7 @@
                     <dd class="col-sm-9">
                         @if (User.IsInRole("Admin"))
                         {
-                            <select class="form-control" name="ServiceId" value="@Model.Employee.ServiceId">
+                            <select class="form-control" name="ServiceId">
                                 @foreach (var service in Model.AllServices)
                                 {
                                     <option value="@service.Id">@service.Name</option>
@@ -112,9 +112,8 @@
                     <div class="d-flex justify-content-end mb-4">
                         @if (User.IsInRole("Admin"))
                         {
-                                        
                             <button asp-page-handler="UpdateEmployee" asp-route-employeeId="@Model.Employee.Id" class="btn btn-primary" type="submit">Update Employee</button>
-                            <a asp-page-handler="DeleteEmployee" asp-route-employeeId="@Model.Employee.Id" class="btn btn-danger ml-2">Delete Employee</a>
+                            <button asp-page-handler="DeleteEmployee" asp-route-employeeId="@Model.Employee.Id" type="submit" class="btn btn-danger ml-2">Delete Employee</button>
                         }
                     </div>
                 </form>
@@ -123,3 +122,14 @@
         </dl>
     </div>
 </div>
+
+
+<script>
+    var serviceId = '@Model.Employee.ServiceId';
+    var selectService = document.querySelector('select[name="ServiceId"]');
+    selectService.value = serviceId;
+    
+    var siteId = '@Model.Employee.SiteId';
+    var selectSite = document.querySelector('select[name="SiteId"]');
+    selectSite.value = siteId;
+</script>

@@ -42,10 +42,28 @@ public class ServiceService : IServiceService
     }
 
     /// <inheritdoc />
-    public async Task DeleteServiceAsync(int id)
+    public async Task<bool> DeleteServiceAsync(int id)
     {
-        var service = await GetServiceByIdAsync(id);
+        var service = await _dbContext.Services.FindAsync(id);
+
+        if (service == null)
+        {
+            return false;
+        }
+
+        if (!await IsServiceEmptyAsync(id))
+        {
+            return false;
+        }
+
         _dbContext.Services.Remove(service);
         await _dbContext.SaveChangesAsync();
+
+        return true;
+    }
+
+    public async Task<bool> IsServiceEmptyAsync(int serviceId)
+    {
+        return !await _dbContext.Employees.AnyAsync(e => e.ServiceId == serviceId);
     }
 }
